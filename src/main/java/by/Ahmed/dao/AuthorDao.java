@@ -57,7 +57,7 @@ public class AuthorDao implements Dao<Author> {
             WHERE id = ?;""";
 
     private static final String DELETE_SQL = """
-            DELETE FROM article
+            DELETE FROM author
             WHERE id = ?""";
 
     @Override
