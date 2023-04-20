@@ -67,11 +67,21 @@
       <version>5.0.0</version>
       <scope>provided</scope>
     </dependency>
-      <dependency>
+    <dependency>
           <groupId>org.jetbrains</groupId>
           <artifactId>annotations</artifactId>
           <version>13.0</version>
           <scope>compile</scope>
-      </dependency>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.6.15.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>com.vladmihalcea</groupId>
+      <artifactId>hibernate-types-55</artifactId>
+      <version>2.21.1</version>
+    </dependency>
   </dependencies>
 </project>

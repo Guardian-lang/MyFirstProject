@@ -1,39 +1,23 @@
 package by.Ahmed.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "recommended_themes")
 public class RecommendedThemes {
-
-    private User user;
-    private Theme theme;
-
-    public RecommendedThemes() {
-    }
-
-    public RecommendedThemes(User user, Theme theme) {
-        this.user = user;
-        this.theme = theme;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Theme getTheme() {
-        return theme;
-    }
-
-    public void setTheme(Theme theme) {
-        this.theme = theme;
-    }
-
-    @Override
-    public String toString() {
-        return "recommended_themes{" +
-                "user_id=" + user.getId() +
-                ", theme_id=" + theme.getId() +
-                '}';
-    }
+    @Id
+    private Long id;
+    private Long userId;
+    private Long themeId;
 }
