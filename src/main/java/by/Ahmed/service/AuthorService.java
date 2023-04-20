@@ -1,9 +1,9 @@
 package by.Ahmed.service;
 
 import by.Ahmed.dao.AuthorDao;
-import by.Ahmed.dto.ArticleDto;
 import by.Ahmed.dto.AuthorDto;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +21,7 @@ public class AuthorService {
 
     public List<AuthorDto> findAll() {
         return authorDao.readAll().stream().map(
-                author -> new ArticleDto(
+                author -> new AuthorDto(
                         author.getId(),
                         """
                            %s - %s - %s - %s - %s - %s - %s
@@ -34,7 +34,7 @@ public class AuthorService {
                                 author.getJobTitle(),
                                 author.getCheckStatus()
                         ),
-                        author.getAbout()
+                        new File(author.getAbout())
                 )
         ).collect(Collectors.toList());
     }
