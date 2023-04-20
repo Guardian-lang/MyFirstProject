@@ -18,7 +18,7 @@ public class ArticleService {
         return INSTANCE;
     }
 
-    public List<ArticleDto> findAll() {
+    public static List<ArticleDto> findAll() {
         return articleDao.readAll().stream().map(
                 article -> new ArticleDto(
                         article.getId(),
