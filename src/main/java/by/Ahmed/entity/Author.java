@@ -1,7 +1,5 @@
 package by.Ahmed.entity;
 
-import org.w3c.dom.Text;
-
 public class Author {
 
     private Long id;
