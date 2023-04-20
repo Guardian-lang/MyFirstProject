@@ -14,7 +14,7 @@ public class ArticleService {
 
     }
 
-    private static ArticleService getInstance() {
+    public static ArticleService getInstance() {
         return INSTANCE;
     }
 
