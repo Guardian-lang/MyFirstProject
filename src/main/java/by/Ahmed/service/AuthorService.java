@@ -23,17 +23,13 @@ public class AuthorService {
         return authorDao.readAll().stream().map(
                 author -> new AuthorDto(
                         author.getId(),
-                        """
-                           %s - %s - %s - %s - %s - %s - %s
-                        """.formatted(
-                                author.getFirstName(),
-                                author.getLastName(),
-                                author.getGender(),
-                                author.getAge(),
-                                author.getOccupation(),
-                                author.getJobTitle(),
-                                author.getCheckStatus()
-                        ),
+                        author.getFirstName(),
+                        author.getLastName(),
+                        author.getGender(),
+                        author.getAge(),
+                        author.getOccupation(),
+                        author.getJobTitle(),
+                        author.getCheckStatus(),
                         new File(author.getAbout())
                 )
         ).collect(Collectors.toList());

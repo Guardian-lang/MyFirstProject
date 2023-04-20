@@ -22,13 +22,10 @@ public class ArticleService {
         return articleDao.readAll().stream().map(
                 article -> new ArticleDto(
                         article.getId(),
-                        """
-                           %s - %s - %s
-                        """.formatted(
-                                article.getTheme().getId(),
-                                article.getAuthor().getId(),
-                                article.getTitle()
-                        ),
+                        article.getTheme().getId(),
+                        article.getAuthor().getId(),
+                        article.getTitle(),
+                        article.getDate(),
                         article.getText()
                 )
         ).collect(Collectors.toList());
