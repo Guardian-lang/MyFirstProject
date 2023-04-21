@@ -72,11 +72,11 @@ public class ArticleDao implements Dao<Article> {
 
     @Override
     public void setStatement(Article article, PreparedStatement statement) throws SQLException {
-        statement.setLong(1, article.getTheme().getId());
-        statement.setLong(2, article.getAuthor().getId());
+        statement.setLong(1, article.getThemeId());
+        statement.setLong(2, article.getAuthorId());
         statement.setString(3, article.getTitle());
         statement.setTimestamp(4, Timestamp.valueOf(article.getDate()));
-        statement.setObject(5, article.getText());
+        statement.setString(5, article.getText());
     }
 
     @Override
@@ -109,17 +109,17 @@ public class ArticleDao implements Dao<Article> {
     public Article build(ResultSet result) throws SQLException {
         return new Article(
                 result.getLong("id"),
-                (Theme) themeDao.findById(
+                themeDao.findById(
                         result.getLong("theme_id"),
                         result.getStatement().getConnection()
-                ).orElse(null),
-                (Author) authorDao.findById(
+                ).orElse(null).getId(),
+                authorDao.findById(
                         result.getLong("author_id"),
                         result.getStatement().getConnection()
-                ).orElse(null),
+                ).orElse(null).getId(),
                 result.getString("title"),
                 result.getTimestamp("date").toLocalDateTime(),
-                (File) result.getObject("text")
+                result.getString("text")
         );
     }
 

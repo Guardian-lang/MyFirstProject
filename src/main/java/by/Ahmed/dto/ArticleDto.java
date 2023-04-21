@@ -2,7 +2,6 @@ package by.Ahmed.dto;
 
 import lombok.*;
 
-import java.io.File;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,5 +15,5 @@ public class ArticleDto {
     Long authorId;
     String title;
     LocalDateTime date;
-    File text;
+    String text;
 }

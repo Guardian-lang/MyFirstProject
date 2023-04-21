@@ -8,19 +8,19 @@ import java.time.LocalDateTime;
 public class Article {
 
     private Long id;
-    private Theme theme;
-    private Author author;
+    private Long themeId;
+    private Long authorId;
     private String title;
     private LocalDateTime date;
-    private File text;
+    private String text;
 
     public Article() {
     }
 
-    public Article(Long id, Theme theme, Author author, String title, LocalDateTime date, File text) {
+    public Article(Long id, Long themeId, Long authorId, String title, LocalDateTime date, String text) {
         this.id = id;
-        this.theme = theme;
-        this.author = author;
+        this.themeId = themeId;
+        this.authorId = authorId;
         this.title = title;
         this.date = date;
         this.text = text;
@@ -30,12 +30,12 @@ public class Article {
         return id;
     }
 
-    public Theme getTheme() {
-        return theme;
+    public Long getThemeId() {
+        return themeId;
     }
 
-    public Author getAuthor() {
-        return author;
+    public Long getAuthorId() {
+        return authorId;
     }
 
     public String getTitle() {
@@ -46,7 +46,7 @@ public class Article {
         return date;
     }
 
-    public File getText() {
+    public String getText() {
         return text;
     }
 
@@ -60,7 +60,7 @@ public class Article {
         this.date = date;
     }
 
-    public void setText(File text) {
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -68,8 +68,8 @@ public class Article {
     public String toString() {
         return "article{" +
                 "id=" + id +
-                ", theme_id=" + theme.getId() +
-                ", author_id=" + author.getId() +
+                ", theme_id=" + themeId +
+                ", author_id=" + authorId +
                 ", title='" + title + '\'' +
                 ", date=" + date +
                 ", text=" + text +

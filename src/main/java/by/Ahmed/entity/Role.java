@@ -3,13 +3,13 @@ package by.Ahmed.entity;
 import java.util.Arrays;
 import java.util.Optional;
 
-public enum Gender {
-    MALE,
-    FEMALE;
+public enum Role {
+    AUTHOR,
+    ADMIN;
 
-    public static Optional<Gender> find(String gender) {
+    public static Optional<Role> find(String role) {
         return Arrays.stream(values())
-                .filter(it -> it.name().equals(gender))
+                .filter(it -> it.name().equals(role))
                 .findFirst();
     }
 }
