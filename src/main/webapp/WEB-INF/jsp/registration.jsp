@@ -20,7 +20,7 @@
     <label for="last_name">Surname:
         <input type="text" name="name" id="last_name">
     </label><br/>
-  <label for="age">Birthday:
+  <label for="age">Age:
     <input type="int" name="age" id="age">
   </label><br/>
   <label for="email">Email:
