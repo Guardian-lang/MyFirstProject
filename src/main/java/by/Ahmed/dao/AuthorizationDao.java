@@ -1,6 +1,7 @@
 package by.Ahmed.dao;
 
 import by.Ahmed.entity.Article;
+import by.Ahmed.entity.Author;
 import by.Ahmed.entity.Authorization;
 import by.Ahmed.exceptions.DaoException;
 import by.Ahmed.utils.ConnectionManager;
@@ -14,6 +15,7 @@ public class AuthorizationDao implements Dao<Authorization> {
 
     private static final AuthorizationDao INSTANCE = new AuthorizationDao();
     public static AuthorizationDao getInstance() {return INSTANCE;}
+    public static AuthorDao authorDao = AuthorDao.getInstance();
 
     private static final String CREATE_SQL = """
             INSERT INTO public.authorization (email, password) VALUES
@@ -26,8 +28,19 @@ public class AuthorizationDao implements Dao<Authorization> {
     private static final String READ_SQL_BY_ID = READ_SQL + """
             WHERE id = ?;""";
 
-    private static final String READ_SQL_BY_EMAIL_AND_PASSWORD = READ_SQL + """
-            WHERE email = ? AND password = ?""";
+    private static final String READ_SQL_BY_EMAIL_AND_PASSWORD =  """
+            SELECT au.id,
+            au.first_name,
+            au.last_name,
+            au.gender,
+            au.birth_date,
+            au.occupation,
+            au.job_title,
+            au.check_status,
+            au.about,
+            au.authorization_id FROM author au
+            JOIN public.authorization az on au.authorization_id = az.id
+            WHERE az.email = ? AND az.password = ?""";
 
     private static final String UPDATE_SQL = """
             UPDATE public.authorization SET
@@ -84,6 +97,21 @@ public class AuthorizationDao implements Dao<Authorization> {
     @Override
     public Optional<Authorization> findById(Long id, Connection connection) {
         return tryConnection(id, connection, READ_SQL_BY_ID);
+    }
+
+    public  Optional<Author> findByEmailAndPassword(String email, String password) {
+        try (var connection = ConnectionManager.get();
+                var statement = connection.prepareStatement(READ_SQL_BY_EMAIL_AND_PASSWORD)) {
+            Authorization authorization = null;
+            statement.setString(1, email);
+            statement.setString(2, password);
+            var result = statement.executeQuery();
+            if (result.next())
+                authorization = build(result);
+            return authorDao.findByAuthorizationId(authorization.getId(), connection);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
     @Override

@@ -37,6 +37,7 @@ public class AuthorDao implements Dao<Author> {
             au.authorization_id,
             a.id FROM author au
             JOIN article a on au.id = a.author_id
+            JOIN public.authorization az on au.authorization_id = az.id
             """;
 
     private static final String READ_SQL_BY_ARTICLE_ID = READ_SQL + """
@@ -44,6 +45,9 @@ public class AuthorDao implements Dao<Author> {
 
     private static final String READ_SQL_BY_AUTHOR_ID = READ_SQL + """
             WHERE au.id = ?;""";
+
+    private static final String READ_SQL_BY_AUTHORIZATION_ID = READ_SQL + """
+            WHERE az.id = ?;""";
 
     private static final String UPDATE_SQL = """
             UPDATE author SET
@@ -140,6 +144,10 @@ public class AuthorDao implements Dao<Author> {
 
     public Optional<Author> findByArticleId(Long id, Connection connection) {
         return tryConnection(id, connection, READ_SQL_BY_ARTICLE_ID);
+    }
+
+    public  Optional<Author> findByAuthorizationId(Long id, Connection connection) {
+        return tryConnection(id, connection, READ_SQL_BY_AUTHORIZATION_ID);
     }
 
     @Override
