@@ -2,20 +2,15 @@ package by.Ahmed.dao;
 
 import by.Ahmed.exceptions.DaoException;
 import by.Ahmed.entity.Article;
-import by.Ahmed.entity.Author;
-import by.Ahmed.entity.Theme;
 import by.Ahmed.utils.ConnectionManager;
 
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class ArticleDao implements Dao<Article> {
-
     private static final ArticleDao INSTANCE = new ArticleDao();
-
     public static ArticleDao getInstance() {
         return INSTANCE;
     }

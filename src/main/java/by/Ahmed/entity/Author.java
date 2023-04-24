@@ -1,30 +1,37 @@
 package by.Ahmed.entity;
 
+import lombok.Builder;
+
+import java.time.LocalDateTime;
+
+@Builder
 public class Author {
 
     private Long id;
     private String firstName;
     private String lastName;
     private Gender gender;
-    private int age;
+    private LocalDateTime birthDate;
     private String occupation;
     private String jobTitle;
     private CheckStatus checkStatus;
     private String about;
+    private Long authorizationId;
 
     public Author() {
     }
 
-    public Author(Long id, String firstName, String lastName, Gender gender, int age, String occupation, String jobTitle, CheckStatus checkStatus, String about) {
+    public Author(Long id, String firstName, String lastName, Gender gender, LocalDateTime date, String occupation, String jobTitle, CheckStatus checkStatus, String about, Long authorizationId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
-        this.age = age;
+        this.birthDate = date;
         this.occupation = occupation;
         this.jobTitle = jobTitle;
         this.checkStatus = checkStatus;
         this.about = about;
+        this.authorizationId = authorizationId;
     }
 
     public Long getId() {
@@ -56,12 +63,10 @@ public class Author {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
-    }
+    public LocalDateTime getBirthDate() {return birthDate;}
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthDate(LocalDateTime date) {
+        this.birthDate = birthDate;
     }
 
     public String getOccupation() {
@@ -96,6 +101,14 @@ public class Author {
         this.about = about;
     }
 
+    public Long getAuthorizationId() {
+        return authorizationId;
+    }
+
+    public void setAuthorizationId(Long authorizationId) {
+        this.authorizationId = authorizationId;
+    }
+
     @Override
     public String toString() {
         return "author{" +
@@ -103,11 +116,12 @@ public class Author {
                 ", first_name='" + firstName + '\'' +
                 ", last_name='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
-                ", age=" + age +
+                ", birth_date=" + birthDate +
                 ", occupation='" + occupation + '\'' +
                 ", job_title='" + jobTitle + '\'' +
                 ", check_status=" + checkStatus +
                 ", about=" + about +
+                ", authorization_id=" + authorizationId +
                 '}';
     }
 }

@@ -14,16 +14,17 @@ public class AdminDao implements Dao<Admin> {
     private static final AdminDao INSTANCE = new AdminDao();
 
     private static final String CREATE_SQL = """
-            INSERT INTO admin (first_name, last_name, gender, age, admin_rules) VALUES
-            (?, ?, ?, ?, ?);""";
+            INSERT INTO admin (first_name, last_name, gender, birth_date, admin_rules, authorization_id) VALUES
+            (?, ?, ?, ?, ?, ?);""";
 
     private static final String READ_SQL = """
             SELECT
             ad.first_name ||' '||
             ad.last_name fio,
             ad.gender,
-            ad.age,
-            ad.admin_rules
+            ad.birth_date,
+            ad.admin_rules,
+            ad.authorization_id
             FROM admin ad
             """;
 
@@ -35,8 +36,9 @@ public class AdminDao implements Dao<Admin> {
             first_name = ?,
             last_name = ?,
             gender = ?,
-            age = ?,
-            admin_rules = ?
+            birth_date = ?,
+            admin_rules = ?,
+            authorization_id = ?
             WHERE id = ?;""";
 
     private static final String DELETE_SQL = """
@@ -101,8 +103,9 @@ public class AdminDao implements Dao<Admin> {
                 result.getString("first_name"),
                 result.getString("last_name"),
                 (Gender) result.getObject("gender"),
-                result.getInt("age"),
-                (AdminRules) result.getObject("admin_rules")
+                result.getTimestamp("birth_date").toLocalDateTime(),
+                (AdminRules) result.getObject("admin_rules"),
+                result.getLong("authorization_id")
         );
     }
 
@@ -111,8 +114,9 @@ public class AdminDao implements Dao<Admin> {
         statement.setString(1, admin.getFirstName());
         statement.setString(2, admin.getLastName());
         statement.setObject(3, admin.getGender());
-        statement.setInt(4, admin.getAge());
+        statement.setTimestamp(4, Timestamp.valueOf(admin.getDate()));
         statement.setObject(5, admin.getAdminRules());
+        statement.setLong(6, admin.getAuthorizationId());
     }
 
     @Override

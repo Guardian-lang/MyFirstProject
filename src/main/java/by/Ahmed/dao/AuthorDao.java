@@ -21,7 +21,7 @@ public class AuthorDao implements Dao<Author> {
     }
 
     private static final String CREATE_SQL = """
-            INSERT INTO author (first_name, last_name, gender, age, occupation, job_title, check_status, about) VALUES
+            INSERT INTO author (first_name, last_name, gender, birth_date, occupation, job_title, check_status, about, authorization_id) VALUES
             (?, ?, ?, ?, ?, ?, ?, ?);""";
 
     private static final String READ_SQL = """
@@ -29,11 +29,12 @@ public class AuthorDao implements Dao<Author> {
             au.first_name ||' '||
             au.last_name fio,
             au.gender,
-            au.age,
+            au.birth_date,
             au.occupation,
             au.job_title,
             au.check_status,
             au.about,
+            au.authorization_id,
             a.id FROM author au
             JOIN article a on au.id = a.author_id
             """;
@@ -49,11 +50,12 @@ public class AuthorDao implements Dao<Author> {
             first_name = ?,
             last_name = ?,
             gender = ?,
-            age = ?,
+            birth_date = ?,
             occupation = ?,
             job_title = ?,
             check_status = ?,
-            about = ?
+            about = ?,
+            authorization_id = ?
             WHERE id = ?;""";
 
     private static final String DELETE_SQL = """
@@ -92,11 +94,12 @@ public class AuthorDao implements Dao<Author> {
         statement.setString(1, author.getFirstName());
         statement.setString(2, author.getLastName());
         statement.setObject(3, author.getGender());
-        statement.setInt(4, author.getAge());
+        statement.setTimestamp(4, Timestamp.valueOf(author.getBirthDate()));
         statement.setString(5, author.getOccupation());
         statement.setString(6, author.getJobTitle());
         statement.setObject(7, author.getCheckStatus());
         statement.setString(8, author.getAbout());
+        statement.setLong(9, author.getAuthorizationId());
     }
 
     @Override
@@ -121,11 +124,12 @@ public class AuthorDao implements Dao<Author> {
                 result.getString("first_name"),
                 result.getString("last_name"),
                 (Gender) result.getObject("gender"),
-                result.getInt("age"),
+                result.getTimestamp("birth_date").toLocalDateTime(),
                 result.getString("occupation"),
                 result.getString("job_title"),
                 (CheckStatus) result.getObject("check_status"),
-                result.getString("about")
+                result.getString("about"),
+                result.getLong("authorization_id")
         );
     }
 

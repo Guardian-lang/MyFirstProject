@@ -8,19 +8,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "recommended_themes")
-public class RecommendedThemes {
+@Entity(name = "trash_can")
+public class TrashCan {
     @Id
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "theme_id")
-    private Long themeId;
+    @Column(name = "author_id")
+    private Long authorId;
+    @Column(name = "admin_id")
+    private Long adminId;
 }
