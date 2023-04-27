@@ -22,7 +22,8 @@ public class CreateAuthorMapper implements Mapper<CreateAuthorDto, Author> {
                 .jobTitle(object.getJobTitle())
                 .checkStatus(CheckStatus.valueOf(object.getCheckStatus()))
                 .about(object.getAbout())
-                .authorizationId(Long.valueOf(object.getAuthorizationId()))
+                .email(object.getEmail())
+                .password(object.getPassword())
                 .build();
     }
 }

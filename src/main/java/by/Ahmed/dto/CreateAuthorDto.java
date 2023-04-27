@@ -20,5 +20,6 @@ public class CreateAuthorDto {
     String jobTitle;
     String checkStatus;
     String about;
-    String authorizationId;
+    String email;
+    String password;
 }

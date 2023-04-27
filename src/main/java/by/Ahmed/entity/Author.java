@@ -16,12 +16,13 @@ public class Author {
     private String jobTitle;
     private CheckStatus checkStatus;
     private String about;
-    private Long authorizationId;
+    private String email;
+    private String password;
 
     public Author() {
     }
 
-    public Author(Long id, String firstName, String lastName, Gender gender, LocalDateTime date, String occupation, String jobTitle, CheckStatus checkStatus, String about, Long authorizationId) {
+    public Author(Long id, String firstName, String lastName, Gender gender, LocalDateTime date, String occupation, String jobTitle, CheckStatus checkStatus, String about, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -31,7 +32,8 @@ public class Author {
         this.jobTitle = jobTitle;
         this.checkStatus = checkStatus;
         this.about = about;
-        this.authorizationId = authorizationId;
+        this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -101,27 +103,36 @@ public class Author {
         this.about = about;
     }
 
-    public Long getAuthorizationId() {
-        return authorizationId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAuthorizationId(Long authorizationId) {
-        this.authorizationId = authorizationId;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "author{" +
+        return "Author{" +
                 "id=" + id +
-                ", first_name='" + firstName + '\'' +
-                ", last_name='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
-                ", birth_date=" + birthDate +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender=" + gender +
+                ", birthDate=" + birthDate +
                 ", occupation='" + occupation + '\'' +
-                ", job_title='" + jobTitle + '\'' +
-                ", check_status=" + checkStatus +
-                ", about=" + about +
-                ", authorization_id=" + authorizationId +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", checkStatus=" + checkStatus +
+                ", about='" + about + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

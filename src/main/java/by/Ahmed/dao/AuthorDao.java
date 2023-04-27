@@ -3,6 +3,7 @@ package by.Ahmed.dao;
 import by.Ahmed.exceptions.DaoException;
 import by.Ahmed.entity.*;
 import by.Ahmed.utils.ConnectionManager;
+import lombok.SneakyThrows;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class AuthorDao implements Dao<Author> {
     }
 
     private static final String CREATE_SQL = """
-            INSERT INTO author (first_name, last_name, gender, birth_date, occupation, job_title, check_status, about, authorization_id) VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?);""";
+            INSERT INTO author (first_name, last_name, gender, birth_date, occupation, job_title, check_status, about) VALUES
+            (?, ?, ?, ?, ?, ?, ?);""";
 
     private static final String READ_SQL = """
             SELECT au.id,
@@ -33,21 +34,18 @@ public class AuthorDao implements Dao<Author> {
             au.occupation,
             au.job_title,
             au.check_status,
-            au.about,
-            au.authorization_id,
-            a.id FROM author au
-            JOIN article a on au.id = a.author_id
-            JOIN public.authorization az on au.authorization_id = az.id
+            au.about
+            FROM author au
             """;
-
-    private static final String READ_SQL_BY_ARTICLE_ID = READ_SQL + """
-            WHERE a.id = ?;""";
 
     private static final String READ_SQL_BY_AUTHOR_ID = READ_SQL + """
             WHERE au.id = ?;""";
 
-    private static final String READ_SQL_BY_AUTHORIZATION_ID = READ_SQL + """
-            WHERE az.id = ?;""";
+    private static final String READ_SQL_BY_EMAIL = READ_SQL + """
+            WHERE au.email = ?""";
+
+    private static final String READ_SQL_BY_EMAIL_AND_PASSWORD = READ_SQL + """
+            WHERE au.email = ? AND au.password = ?""";
 
     private static final String UPDATE_SQL = """
             UPDATE author SET
@@ -58,8 +56,7 @@ public class AuthorDao implements Dao<Author> {
             occupation = ?,
             job_title = ?,
             check_status = ?,
-            about = ?,
-            authorization_id = ?
+            about = ?
             WHERE id = ?;""";
 
     private static final String DELETE_SQL = """
@@ -103,7 +100,6 @@ public class AuthorDao implements Dao<Author> {
         statement.setString(6, author.getJobTitle());
         statement.setObject(7, author.getCheckStatus());
         statement.setString(8, author.getAbout());
-        statement.setLong(9, author.getAuthorizationId());
     }
 
     @Override
@@ -133,7 +129,8 @@ public class AuthorDao implements Dao<Author> {
                 result.getString("job_title"),
                 (CheckStatus) result.getObject("check_status"),
                 result.getString("about"),
-                result.getLong("authorization_id")
+                result.getString("email"),
+                result.getString("password")
         );
     }
 
@@ -142,12 +139,37 @@ public class AuthorDao implements Dao<Author> {
         return tryConnection(id, connection, READ_SQL_BY_AUTHOR_ID);
     }
 
-    public Optional<Author> findByArticleId(Long id, Connection connection) {
-        return tryConnection(id, connection, READ_SQL_BY_ARTICLE_ID);
+    @SneakyThrows
+    public Optional<Author> findByEmail(String email) {
+        try (var connection = ConnectionManager.get();
+             var preparedStatement = connection.prepareStatement(READ_SQL_BY_EMAIL_AND_PASSWORD)) {
+            preparedStatement.setString(1, email);
+
+            var resultSet = preparedStatement.executeQuery();
+            Author author = null;
+            if (resultSet.next()) {
+                author = build(resultSet);
+            }
+
+            return Optional.ofNullable(author);
+        }
     }
 
-    public  Optional<Author> findByAuthorizationId(Long id, Connection connection) {
-        return tryConnection(id, connection, READ_SQL_BY_AUTHORIZATION_ID);
+    @SneakyThrows
+    public Optional<Author> findByEmailAndPassword(String email, String password) {
+        try (var connection = ConnectionManager.get();
+             var preparedStatement = connection.prepareStatement(READ_SQL_BY_EMAIL_AND_PASSWORD)) {
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            var resultSet = preparedStatement.executeQuery();
+            Author author = null;
+            if (resultSet.next()) {
+                author = build(resultSet);
+            }
+
+            return Optional.ofNullable(author);
+        }
     }
 
     @Override

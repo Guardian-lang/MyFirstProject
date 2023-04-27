@@ -21,7 +21,8 @@ public class AuthorDto {
     String jobTitle;
     CheckStatus checkStatus;
     String about;
-    Long authorizationId;
+    String email;
+    String password;
 }
 
 

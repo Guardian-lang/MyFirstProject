@@ -19,7 +19,8 @@ public class AuthorMapper implements Mapper<Author, AuthorDto> {
                 .jobTitle(object.getJobTitle())
                 .checkStatus(object.getCheckStatus())
                 .about(object.getAbout())
-                .authorizationId(object.getAuthorizationId())
+                .email(object.getEmail())
+                .password(object.getPassword())
                 .build();
     }
 }

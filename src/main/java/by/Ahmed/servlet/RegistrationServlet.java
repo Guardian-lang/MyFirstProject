@@ -1,7 +1,6 @@
 package by.Ahmed.servlet;
 
 import by.Ahmed.dto.CreateAuthorDto;
-import by.Ahmed.entity.Authorization;
 import by.Ahmed.entity.CheckStatus;
 import by.Ahmed.entity.Gender;
 import by.Ahmed.service.AuthorService;
@@ -15,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import by.Ahmed.exceptions.ValidationException;
 import java.io.IOException;
 
-@WebServlet
+@WebServlet("/registration")
 public class RegistrationServlet extends HttpServlet {
     private final AuthorService authorService = AuthorService.getInstance();
     @Override
@@ -36,7 +35,8 @@ public class RegistrationServlet extends HttpServlet {
                 .jobTitle(req.getParameter("job_title"))
                 .checkStatus(String.valueOf(CheckStatus.UNCHECKED))
                 .about(req.getParameter("about"))
-                .authorizationId(String.valueOf(new Authorization().getId()))
+                .email(req.getParameter("email"))
+                .password(req.getParameter("password"))
                 .build();
         try {
             authorService.create(authorDto);

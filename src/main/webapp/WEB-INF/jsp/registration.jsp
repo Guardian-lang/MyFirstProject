@@ -27,8 +27,11 @@
   <label for="birth_date">Date of birth:
     <input type="date" name="birth_date" id="birth_date">
   </label><br/>
-  <label for="birth_date">Date of birth:
-    <input type="date" name="birth_date" id="birth_date">
+  <label for="occupation">Occupation:
+    <input type="text" name="occupation" id="occupation">
+  </label><br/>
+  <label for="job_title">Job Title:
+    <input type="text" name="job_title" id="job_title">
   </label><br/>
   <label for="email">Email:
     <input type="text" name="email" id="email">
@@ -36,6 +39,10 @@
   <label for="pwd">Password:
     <input type="password" name="pwd" id="pwd">
   </label><br/>
+  <label for="about">Write about you:</label>
+  <br/>
+  <textarea id="about" name="about" rows="5" cols="40"></textarea>
+  <br>
   <input type="submit" value="Send">
 </form>
 <c:if test="${not empty requestScope.errors}">

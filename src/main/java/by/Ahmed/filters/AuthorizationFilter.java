@@ -32,6 +32,6 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean isPublicPath(String uri) {
-        return PUBLIC_PATH.stream().anyMatch(e -> uri.startsWith(e));
+        return PUBLIC_PATH.stream().anyMatch(uri::startsWith);
     }
 }
