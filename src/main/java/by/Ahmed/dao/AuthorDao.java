@@ -95,7 +95,7 @@ public class AuthorDao implements Dao<Author> {
         statement.setString(1, author.getFirstName());
         statement.setString(2, author.getLastName());
         statement.setObject(3, author.getGender());
-        statement.setTimestamp(4, Timestamp.valueOf(author.getBirthDate()));
+        statement.setObject(4, author.getBirthDate());
         statement.setString(5, author.getOccupation());
         statement.setString(6, author.getJobTitle());
         statement.setObject(7, author.getCheckStatus());
@@ -124,7 +124,7 @@ public class AuthorDao implements Dao<Author> {
                 result.getString("first_name"),
                 result.getString("last_name"),
                 (Gender) result.getObject("gender"),
-                result.getTimestamp("birth_date").toLocalDateTime(),
+                (Date) result.getObject("birth_date"),
                 result.getString("occupation"),
                 result.getString("job_title"),
                 (CheckStatus) result.getObject("check_status"),

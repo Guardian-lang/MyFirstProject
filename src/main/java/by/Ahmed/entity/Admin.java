@@ -2,7 +2,7 @@ package by.Ahmed.entity;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -14,7 +14,6 @@ public class Admin {
     private String firstName;
     private String lastName;
     private Gender gender;
-    private LocalDateTime date;
+    private Date date;
     private AdminRules adminRules;
-    private Long authorizationId;
 }

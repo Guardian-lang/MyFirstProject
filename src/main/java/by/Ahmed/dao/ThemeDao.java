@@ -25,19 +25,13 @@ public class ThemeDao implements Dao<Theme>{
             (?, ?);""";
 
     private static final String READ_SQL = """
-            SELECT t.name,
-            t.description,
-            au.first_name,
-            au.last_name FROM theme t
-            JOIN author_themes at on t.id = at.theme_id
-            JOIN author au on at.author_id = au.id
+            SELECT id, name,
+            description,
+            FROM theme
             """;
 
     private static final String READ_SQL_BY_THEME_ID = READ_SQL + """
-            WHERE t.id = ?;""";
-
-    private static final String READ_SQL_BY_AUTHOR_ID = READ_SQL + """
-            WHERE au.id = ?;""";
+            WHERE id = ?;""";
 
     private static final String UPDATE_SQL = """
             UPDATE theme SET
@@ -103,10 +97,6 @@ public class ThemeDao implements Dao<Theme>{
     @Override
     public Optional<Theme> findById(Long id, Connection connection) {
         return tryConnection(id, connection, READ_SQL_BY_THEME_ID);
-    }
-
-    public Optional<Theme> findByAuthorId(Long id, Connection connection) {
-        return tryConnection(id, connection, READ_SQL_BY_AUTHOR_ID);
     }
 
     @Override

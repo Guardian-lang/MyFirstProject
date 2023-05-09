@@ -2,6 +2,7 @@ package by.Ahmed.entity;
 
 import lombok.Builder;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Builder
@@ -11,7 +12,7 @@ public class Author {
     private String firstName;
     private String lastName;
     private Gender gender;
-    private LocalDateTime birthDate;
+    private Date birthDate;
     private String occupation;
     private String jobTitle;
     private CheckStatus checkStatus;
@@ -22,7 +23,7 @@ public class Author {
     public Author() {
     }
 
-    public Author(Long id, String firstName, String lastName, Gender gender, LocalDateTime date, String occupation, String jobTitle, CheckStatus checkStatus, String about, String email, String password) {
+    public Author(Long id, String firstName, String lastName, Gender gender, Date date, String occupation, String jobTitle, CheckStatus checkStatus, String about, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -65,9 +66,9 @@ public class Author {
         this.gender = gender;
     }
 
-    public LocalDateTime getBirthDate() {return birthDate;}
+    public Date getBirthDate() {return birthDate;}
 
-    public void setBirthDate(LocalDateTime date) {
+    public void setBirthDate(Date date) {
         this.birthDate = birthDate;
     }
 

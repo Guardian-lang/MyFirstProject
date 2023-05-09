@@ -1,8 +1,6 @@
 package by.Ahmed.entity;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class Article {
@@ -11,13 +9,13 @@ public class Article {
     private Long themeId;
     private Long authorId;
     private String title;
-    private LocalDateTime date;
+    private Date date;
     private String text;
 
     public Article() {
     }
 
-    public Article(Long id, Long themeId, Long authorId, String title, LocalDateTime date, String text) {
+    public Article(Long id, Long themeId, Long authorId, String title, Date date, String text) {
         this.id = id;
         this.themeId = themeId;
         this.authorId = authorId;
@@ -42,7 +40,7 @@ public class Article {
         return title;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -56,7 +54,7 @@ public class Article {
         this.title = title;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

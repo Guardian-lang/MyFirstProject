@@ -14,11 +14,9 @@
     <title>Title</title>
 </head>
 <body>
-<ul>
     <c:forEach var="article" items="${requestScope.articles}">
         <h2>${article.title}</h2>
         <h3><a href="${article.text}">Читать далее</a> </h3>
     </c:forEach>
-</ul>
 </body>
 </html>

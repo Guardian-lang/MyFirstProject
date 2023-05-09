@@ -2,6 +2,7 @@ package by.Ahmed.dto;
 
 import lombok.*;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,6 +15,6 @@ public class ArticleDto {
     Long themeId;
     Long authorId;
     String title;
-    LocalDateTime date;
+    Date date;
     String text;
 }

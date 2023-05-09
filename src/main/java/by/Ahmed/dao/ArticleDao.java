@@ -22,19 +22,10 @@ public class ArticleDao implements Dao<Article> {
             (?, ?, ?, ?, ?);""";
 
     private static final String READ_SQL = """
-            SELECT t.id, au.id, a.title, a.date, a.text FROM article a
-            JOIN theme t on a.theme_id = t.id
-            JOIN author au on au.id = a.author_id
+            SELECT theme_id, author_id, title, date, text FROM article
             """;
-
     private static final String READ_SQL_BY_ARTICLE_ID = READ_SQL + """
-            WHERE a.id = ?;""";
-
-    private static final String READ_SQL_BY_THEME_ID = READ_SQL + """
-            WHERE t.id = ?;""";
-
-    private static final String READ_SQL_BY_AUTHOR_ID = READ_SQL + """
-            WHERE au.id = ?;""";
+            WHERE id = ?;""";
 
     private static final String UPDATE_SQL = """
             UPDATE article SET
@@ -70,7 +61,7 @@ public class ArticleDao implements Dao<Article> {
         statement.setLong(1, article.getThemeId());
         statement.setLong(2, article.getAuthorId());
         statement.setString(3, article.getTitle());
-        statement.setTimestamp(4, Timestamp.valueOf(article.getDate()));
+        statement.setObject(4, article.getDate());
         statement.setString(5, article.getText());
     }
 
@@ -113,7 +104,7 @@ public class ArticleDao implements Dao<Article> {
                         result.getStatement().getConnection()
                 ).orElse(null).getId(),
                 result.getString("title"),
-                result.getTimestamp("date").toLocalDateTime(),
+                (Date) result.getObject("date"),
                 result.getString("text")
         );
     }
@@ -122,15 +113,6 @@ public class ArticleDao implements Dao<Article> {
     public Optional<Article> findById(Long id, Connection connection) {
         return tryConnection(id, connection, READ_SQL_BY_ARTICLE_ID);
     }
-
-    public Optional<Article> findByThemeId(Long id, Connection connection) {
-        return tryConnection(id, connection, READ_SQL_BY_THEME_ID);
-    }
-
-    public Optional<Article> findByAuthorId(Long id, Connection connection) {
-        return tryConnection(id, connection, READ_SQL_BY_AUTHOR_ID);
-    }
-
     @Override
     public Optional<Article> tryConnection(Long id, Connection connection, String sql) {
         try (var statement = connection.prepareStatement(sql)) {
